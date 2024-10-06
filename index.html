@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+    <style>
+        #mapid { 
+	        height: 600px; 
+}
+
+    </style>
+    
+</head>
+<body>
+    <div id="mapid"></div>
+    <script type="text/javascript">
+        //setView设置地图初始位置，参数一经纬度坐标参数[纬度，精度]二缩放比例
+        var mymap = L.map('mapid').setView([18.327508, 109.170693], 13); 
+       
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18
+    }).addTo(mymap);
+
+    //添加比例尺
+var scale = L.control.scale({
+	maxWidth: 200,
+	metric: true,
+	imperial: false
+}).addTo(mymap);
+
+var marker = L.marker([51.5, -0.09]).addTo(mymap);
+
+function onMapClick(e){
+     L.popup().setLatLng(e.latlng)
+              .setContent("You clicked the map at " + e.latlng.toString())
+              .openOn(mymap);
+}
+
+mymap.on('click', onMapClick);
+
+
+    </script>
+</body>
+</html>
